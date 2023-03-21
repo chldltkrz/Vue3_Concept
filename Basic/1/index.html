@@ -14,11 +14,23 @@
   </head>
   <body>
     <header>
-      <h1>Vue Course Goals</h1>
+      <h1>Vue Goals</h1>
     </header>
     <section id="user-goal">
-      <h2>My Course Goal</h2>
-      <p></p>
+      <h2>My Goal</h2>
+
+      <!-- '{{}}' will bind Vue variables to the html code(Interpolation)-->
+      <p>{{ Goal }}</p>
+
+      <!-- v-html will let data to be interpreted as html code instead of plain text-->
+      <p v-html="htmlA"></p>
+
+      <!-- {{}} can also call methods in the methods syntax-->
+      <p>{{ outputGoal() }}</p>
+      <p>{{ outputSmallGoal() }}</p>
+
+      <!-- v-bind will bind certain tag to the data in data Object-->
+      <p>Learn more <a v-bind:href="vueLink">about Vue</a></p>
     </section>
   </body>
 </html>
