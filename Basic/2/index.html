@@ -18,9 +18,39 @@
     </header>
     <section id="events">
       <h2>Events in Action</h2>
-      <button>Add</button>
-      <button>Remove</button>
+
+      <!-- Both are accepted-->
+      <!--<button v-on:click="add">Add</button>-->
+      <button v-on:click="add()">Add</button>
+      <button v-on:click="reduce()">Remove</button>
       <p>Result: {{ counter }}</p>
+      <!-- v-once will reflect initial value only once!!!!-->
+      <p v-once>Result: {{ counter }}</p>
+
+      <!-- input event is best event of input html element-->
+      <!-- When it triggers, the browser ensures it passes event object -->
+      <!-- In order to get the argument, it should be just method name not calline the method-->
+      <input type="text" v-on:input="setName" v-on:keyup.enter="confirmInput" />
+      <!-- or event has to be specified like below-->
+      <!-- <input type="text" v-on:input="setName($event)" /> -->
+      <p>Your Name: {{ confirmedName }}</p>
+
+      <!-- Event Modifier-->
+      <!-- if form has code like
+        <form v-on:submit="submitForm">
+        Then, it refreshes page after submit automatically
+        passing event Object and to event.preventDefault() will stop refreshing automatically
+        <form v-on:submit="submitForm">
+        -->
+      <!-- but there is better way to prevent! or even other behavior
+          <form v-on:submit.left="submitForm"> -> trigger when left mouse click
+          <form v-on:submit.middle="submitForm"> -> trigger when middle mouse click
+          <form v-on:submit.right="submitForm"> -> trigger when right mouse click
+      -->
+      <form v-on:submit.prevent="submitForm">
+        <input type="text" />
+        <button>Sign Up</button>
+      </form>
     </section>
   </body>
 </html>
