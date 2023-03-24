@@ -14,15 +14,32 @@
   </head>
   <body>
     <header>
-      <h1>Vue Course Goals</h1>
+      <h1>Vue Goals</h1>
     </header>
     <section id="user-goals">
-      <h2>My course goals</h2>
-      <input type="text" />
-      <button>Add Goal</button>
-      <p>No goals have been added yet - please start adding some!</p>
-      <ul>
-        <li>Goal</li>
+      <h2>My goals</h2>
+      <input type="text" v-model="enteredGoal" />
+      <button @click="addGoal()">Add Goal</button>
+      <!-- Want to render p tag if there is no contents
+          and want to hide it when a goal is added
+          vise versa for the ul
+          In that case USE "v-if" , "v-else-if", "v-else"!!
+          (v-else is usable only after v-if)
+          Alternatively, I can use "v-show", "v-show" add display:none inline styling though
+      -->
+      <p v-if="goals.length===0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-else>
+        <!-- in order to show multiple items, I use "v-for" directive
+              v-for="(goal, index) in goals" will iterate goal object with the index,(last one is always the index)
+              v-for can also iterate through the objects!, 
+              v-for require key keyword binding in order to distinguish the elements!
+        -->
+        <li v-for="(goal, index) in goals" :key="goal" @click="removeGoal()">
+          <p>{{ goal }}</p>
+          <input type="text" @click.stop />
+        </li>
       </ul>
     </section>
   </body>
