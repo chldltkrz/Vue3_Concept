@@ -17,9 +17,20 @@
       <h1>Vue Dynamic Styling</h1>
     </header>
     <section id="styling">
-      <div class="demo"></div>
-      <div class="demo"></div>
-      <div class="demo"></div>
+      <!-- following inline css selector is not often used -->
+      <!-- <div
+        class="demo"
+        :style="{borderColor: boxASelected ? 'red' : 'grey'}"
+        @click="boxSelected('A')"
+      ></div> -->
+      <!-- There are even shorter way of doing dynamic cssing -->
+      <!-- <div
+        :class='boxASelected ? "demo active" : "demo"'
+        click="boxSelected('A')"
+        ></div> -->
+      <div class="demo" :class="boxAClasses" @click="boxSelected('A')"></div>
+      <div class="demo" :class="boxBClasses" @click="boxSelected('B')"></div>
+      <div class="demo" :class="boxCClasses" @click="boxSelected('C')"></div>
     </section>
   </body>
 </html>
