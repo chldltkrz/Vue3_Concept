@@ -54,12 +54,23 @@ const app = Vue.createApp({
       if (this.hpUser + healValue > 100) return 100;
       this.hpUser += healValue;
     },
+    restart() {
+      this.hpUser = 100;
+      this.hpMonster = 100;
+      this.currentRound = 0;
+      this.winner = null;
+    },
+    surrender() {
+      this.winner = "monster";
+    },
   },
   computed: {
     monsterBarStyles() {
+      if (this.hpMonster < 0) return { width: "0%" };
       return { width: this.hpMonster + "%" };
     },
     userBarStyles() {
+      if (this.hpUser < 0) return { width: "0%" };
       return { width: this.hpUser + "%" };
     },
     useSpecialAttack() {
