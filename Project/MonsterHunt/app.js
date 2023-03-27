@@ -4,7 +4,28 @@ const app = Vue.createApp({
       hpUser: 100,
       hpMonster: 100,
       currentRound: 0,
+      winner: null,
     };
+  },
+  watch: {
+    hpMonster(value) {
+      if (value <= 0 && this.hpUser <= 0) {
+        //Draw
+        this.winner = "draw";
+      } else if (value <= 0) {
+        //Monster Lost
+        this.winner = "player";
+      }
+    },
+    hpUser(value) {
+      if (value <= 0 && this.hpMonster <= 0) {
+        //Draw
+        this.winner = "draw";
+      } else if (value <= 0) {
+        //Player Lost
+        this.winner = "monster";
+      }
+    },
   },
   methods: {
     calculateDamage(max, min) {
@@ -25,6 +46,13 @@ const app = Vue.createApp({
       const damage = this.calculateDamage(10, 25);
       this.hpMonster = this.hpMonster - damage;
       this.attackPlayer();
+    },
+    healUser() {
+      this.currentRound++;
+      this.attackPlayer();
+      const healValue = this.calculateDamage(8, 20);
+      if (this.hpUser + healValue > 100) return 100;
+      this.hpUser += healValue;
     },
   },
   computed: {
