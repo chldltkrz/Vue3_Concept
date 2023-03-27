@@ -5,6 +5,7 @@ const app = Vue.createApp({
       hpMonster: 100,
       currentRound: 0,
       winner: null,
+      log: [],
     };
   },
   watch: {
@@ -35,33 +36,45 @@ const app = Vue.createApp({
       this.currentRound++;
       const damage = this.calculateDamage(12, 5);
       this.hpMonster = this.hpMonster - damage;
+      this.addLogMessage("player", "attack", damage);
       this.attackPlayer();
     },
     attackPlayer() {
       const damage = this.calculateDamage(15, 8);
       this.hpUser = this.hpUser - damage;
+      this.addLogMessage("monster", "attack", damage);
     },
     specialAttackMonster() {
       this.currentRound++;
       const damage = this.calculateDamage(10, 25);
       this.hpMonster = this.hpMonster - damage;
+      this.addLogMessage("player", "specialAttack", damage);
       this.attackPlayer();
     },
     healUser() {
       this.currentRound++;
-      this.attackPlayer();
       const healValue = this.calculateDamage(8, 20);
       if (this.hpUser + healValue > 100) return 100;
       this.hpUser += healValue;
+      this.addLogMessage("player", "heal", healValue);
+      this.attackPlayer();
     },
     restart() {
       this.hpUser = 100;
       this.hpMonster = 100;
       this.currentRound = 0;
       this.winner = null;
+      this.log = [];
     },
     surrender() {
       this.winner = "monster";
+    },
+    addLogMessage(who, what, value) {
+      this.log.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value,
+      });
     },
   },
   computed: {
