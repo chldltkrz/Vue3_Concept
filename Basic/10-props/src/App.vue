@@ -4,8 +4,28 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <!-- It would be great if following usage is used-->
+      <!-- props enables such a use case!
+            its parent-child communication 
+      -->
+      <!-- to pass the other type of value like Boolean, we gotta bind the props -->
+      <!-- In order to use v-for inside the CUSTOM TAG, you gatta put key binding! -->
+      <friend-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        v-bind:is-favorite="true"
+      >
+      </friend-contact>
+      <!-- <friend-contact
+        name="Issac Choi"
+        phone-number="132595 27348"
+        email-address="issac@localhost.com"
+        is-favorite="0"
+      </friend-contact>
+      > -->
     </ul>
   </section>
 </template>
@@ -18,14 +38,14 @@ export default {
         {
           id: "manuel",
           name: "Manuel Lorenz",
-          phone: "0123 45678 90",
+          phone: "013 204 293 193",
           email: "manuel@localhost.com",
         },
         {
-          id: "julie",
-          name: "Julie Jones",
-          phone: "0987 654421 21",
-          email: "julie@localhost.com",
+          id: "issac",
+          name: "issaac",
+          phone: "013 152 2933 267",
+          email: "issac@localhost.com",
         },
       ],
     };
