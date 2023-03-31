@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} - {{ isFavorite === "1" ? "(Favorite)" : "" }}</h2>
+    <h2>{{ name }} - {{ isFavorite ? "(Favorite)" : "" }}</h2>
     <button @click="toggleFavorite">toggle Favorite status</button>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -33,6 +33,10 @@ export default {
   // -> object inside props can be used!
   // -> ERROR will be caused if other types are coming into the props
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -64,7 +68,6 @@ export default {
       },
       // one way to change the status of props is to inherite the parent value into local variable
       // so that it can be changed freely inside the scope of the component(child)
-      friendIsFavorite: this.isFavorite,
     };
   },
   methods: {
@@ -80,6 +83,18 @@ export default {
     //     this.isFavorite = "1";
     //   }
     // },
+
+    // following is about temp solution of uni-directional movement
+    // toggleFavorite() {
+    //   this.friendIsFavorite = !this.friendIsFavorite;
+    // },
+
+    // in order to fire the event from child to the parent,
+    // use following method!
+    toggleFavorite() {
+      // always use kebob-case nomatter where it is
+      this.$emit("toggle-favorite", this.id);
+    },
   },
 };
 </script>
