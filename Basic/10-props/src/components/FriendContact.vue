@@ -60,12 +60,12 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
-      friend: {
-        id: "manuel",
-        name: "Manuel Lorenz",
-        phone: "0123 45678 90",
-        email: "manuel@localhost.com",
-      },
+      // // friend: {
+      // //   id: "manuel",
+      // //   name: "Manuel Lorenz",
+      // //   phone: "0123 45678 90",
+      // //   email: "manuel@localhost.com",
+      // // },
       // one way to change the status of props is to inherite the parent value into local variable
       // so that it can be changed freely inside the scope of the component(child)
     };
@@ -92,7 +92,7 @@ export default {
     // in order to fire the event from child to the parent,
     // use following method!
     toggleFavorite() {
-      // always use kebob-case nomatter where it is
+      // always use kebob-case no matter where it is
       this.$emit("toggle-favorite", this.id);
     },
   },
