@@ -57,6 +57,18 @@ export default {
       // // },
     },
   },
+  // this emit directive makes it easy to manage all events
+  emit: ["toggle-favorite"],
+  // emit: {
+  //   "toggle-favorite": function (id) {
+  //     if (id) {
+  //       return true;
+  //     } else {
+  //       console.warn("need ID!");
+  //       return false;
+  //     }
+  // },
+  // },
   data() {
     return {
       detailsAreVisible: false,
