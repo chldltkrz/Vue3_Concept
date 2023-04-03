@@ -15,6 +15,7 @@
         {{ emailAddress }}
       </li>
     </ul>
+    <button @click="deleteFriend">Delete</button>
   </li>
 </template>
 
@@ -58,7 +59,7 @@ export default {
     },
   },
   // this emit directive makes it easy to manage all events
-  emit: ["toggle-favorite"],
+  emit: ["toggle-favorite", "delete"],
   // emit: {
   //   "toggle-favorite": function (id) {
   //     if (id) {
@@ -106,6 +107,9 @@ export default {
     toggleFavorite() {
       // always use kebob-case no matter where it is
       this.$emit("toggle-favorite", this.id);
+    },
+    deleteFriend() {
+      this.$emit("delete", this.id);
     },
   },
 };
