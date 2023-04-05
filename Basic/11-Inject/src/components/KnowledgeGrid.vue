@@ -13,7 +13,9 @@
 
 <script>
 export default {
-  props: ['topics'],
-  emits: ['select-topic']
+  // inject is working in an envirinment where there is higher provider!
+  inject: ["topics"],
+  // props: ["topics"],
+  emits: ["select-topic"],
 };
 </script>

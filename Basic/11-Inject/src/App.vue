@@ -1,10 +1,13 @@
 <template>
   <div>
+    <!-- provide & inject works in parent-child relationship
+          not in the naighbor relationship!
+    -->
     <active-element
       :topic-title="activeTopic && activeTopic.title"
       :text="activeTopic && activeTopic.fullText"
     ></active-element>
-    <knowledge-base :topics="topics" @select-topic="activateTopic"></knowledge-base>
+    <knowledge-base @select-topic="activateTopic"></knowledge-base>
   </div>
 </template>
 
@@ -14,23 +17,28 @@ export default {
     return {
       topics: [
         {
-          id: 'basics',
-          title: 'The Basics',
-          description: 'Core Vue basics you have to know',
+          id: "basics",
+          title: "The Basics",
+          description: "Core Vue basics you have to know",
           fullText:
-            'Vue is a great framework and it has a couple of key concepts: Data binding, events, components and reactivity - that should tell you something!',
+            "Vue is a great framework and it has a couple of key concepts: Data binding, events, components and reactivity - that should tell you something!",
         },
         {
-          id: 'components',
-          title: 'Components',
+          id: "components",
+          title: "Components",
           description:
-            'Components are a core concept for building Vue UIs and apps',
+            "Components are a core concept for building Vue UIs and apps",
           fullText:
-            'With components, you can split logic (and markup) into separate building blocks and then combine those building blocks (and re-use them) to build powerful user interfaces.',
+            "With components, you can split logic (and markup) into separate building blocks and then combine those building blocks (and re-use them) to build powerful user interfaces.",
         },
       ],
       activeTopic: null,
     };
+  },
+  provide() {
+    // if have duplicate obbject,
+    // 1. its duplicate of code
+    // 2. the change of the data will not be reflected to the topic provided
   },
   methods: {
     activateTopic(topicId) {
