@@ -1,26 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <PageHeader id="header"></PageHeader>
+  <TextField id="textfield"></TextField>
+  <InputField id="Inputfield"></InputField>
+  <PageFooter id="footer"></PageFooter>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import PageHeader from "./components/header/PageHeader.vue";
+import TextField from "./components/body/TextField.vue";
+import InputField from "./components/body/InputField.vue";
+import PageFooter from "./components/footer/PageFooter.vue";
 export default {
   name: "App",
-  components: {
-    HelloWorld,
-  },
+  components: { PageHeader, PageFooter, TextField, InputField },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+#header {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #14005e;
+  color: white;
+}
+#footer {
+  position: absolute;
+  bottom: 0px;
+  width: 99%;
+  height: 6rem;
+  justify-content: center;
+  align-items: center;
+  background-color: lightskyblue;
+}
+#textfield {
+  width: 100%;
+  background-color: lightgrey;
+  height: 45rem;
 }
 </style>
