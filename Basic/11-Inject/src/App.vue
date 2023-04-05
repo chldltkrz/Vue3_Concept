@@ -7,9 +7,17 @@
       :topic-title="activeTopic && activeTopic.title"
       :text="activeTopic && activeTopic.fullText"
     ></active-element>
-    <knowledge-base @select-topic="activateTopic"></knowledge-base>
+    <!-- <knowledge-base @select-topic="activateTopic"></knowledge-base> -->
+    <knowledge-base></knowledge-base>
   </div>
 </template>
+<!-- NOTE!
+      that props and Custom Event CANNOT be replace with provide and inject model!
+      each of them has their own pro and cons
+      props and Custom Event is the default
+      If passThrough component is used then provide inject is your guy
+      Its tough to go over all the injected value in all components! It is quite tough!
+-->
 
 <script>
 export default {
@@ -39,6 +47,11 @@ export default {
     // if have duplicate obbject,
     // 1. its duplicate of code
     // 2. the change of the data will not be reflected to the topic provided
+    return {
+      topics: this.topics,
+      // since K-element is listening on selectTopic method name, we gatta pass the activateTopic Method as passing method
+      selectTopic: this.activateTopic,
+    };
   },
   methods: {
     activateTopic(topicId) {
