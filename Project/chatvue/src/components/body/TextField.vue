@@ -1,11 +1,15 @@
 <template>
   <div>
     <ul>
-      <li>hi</li>
+      <li>{{ returnedMessage }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    returnedMessage: String,
+  },
+};
 </script>

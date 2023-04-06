@@ -1,7 +1,7 @@
 <template>
   <PageHeader id="header"></PageHeader>
-  <TextField id="textfield"></TextField>
-  <InputField id="Inputfield"></InputField>
+  <TextField id="textfield" :returnedMessage="returnedMessage"></TextField>
+  <InputField id="Inputfield" @send="setMessage"></InputField>
   <PageFooter id="footer"></PageFooter>
 </template>
 
@@ -10,74 +10,39 @@ import PageHeader from "./components/header/PageHeader.vue";
 import TextField from "./components/body/TextField.vue";
 import InputField from "./components/body/InputField.vue";
 import PageFooter from "./components/footer/PageFooter.vue";
+import ChatGPT from "./components/ChatGPT.vue";
 
-const OPENAI_API_KEY = process.env.VUE_APP_OPENAI_API_KEY;
-
-import { OpenAIApi, Configuration } from "openai";
-
-class ChatGPTClient {
-  constructor() {
-    const configuration = new Configuration({
-      apiKey: OPENAI_API_KEY,
-    });
-    this.openAI = new OpenAIApi(configuration);
-  }
-
-  async respond(chatGPTMessages) {
-    try {
-      if (!chatGPTMessages) {
-        return {
-          text: "No chatGPTMessages",
-        };
-      }
-
-      const request = {
-        messages: chatGPTMessages,
-        model: "gpt-3.5-turbo",
-      };
-
-      const response = await this.openAI.createChatCompletion(request);
-      if (!response.data || !response.data.choices) {
-        return {
-          text: "The bot didn't respond. Please try again later.",
-        };
-      }
-
-      return {
-        text: response.data.choices[0].message?.content,
-        messageId: response.data.id,
-      };
-    } catch (error) {
-      console.log("E: ", error);
-      throw new Error(error);
-    }
-  }
-}
 import { ChatCompletionRequestMessageRoleEnum } from "openai";
-
-const chatGptMessages = [
-  {
-    role: ChatCompletionRequestMessageRoleEnum.System,
-    content: "You are a helpful assistant.",
-  },
-  {
-    role: ChatCompletionRequestMessageRoleEnum.User,
-    content: "give me some random name",
-  },
-];
-
-const client = new ChatGPTClient();
-
-const sendChatRequest = async function () {
-  const result = await client.respond(chatGptMessages);
-  console.log(result);
-};
-
-sendChatRequest();
+const client = ChatGPT.chatgpt;
 
 export default {
   name: "App",
   components: { PageHeader, PageFooter, TextField, InputField },
+  data() {
+    return {
+      returnedMessage: "",
+    };
+  },
+  methods: {
+    setMessage(message) {
+      const chatGptMessages = [
+        {
+          role: ChatCompletionRequestMessageRoleEnum.System,
+          content: "You are a helpful assistant.",
+        },
+        {
+          role: ChatCompletionRequestMessageRoleEnum.User,
+          content: message,
+        },
+      ];
+      const result = async function () {
+        const resultMessage = await client.respond(chatGptMessages);
+        console.log(resultMessage.text);
+        return resultMessage.text;
+      };
+      this.returnedMessage = result();
+    },
+  },
 };
 </script>
 
