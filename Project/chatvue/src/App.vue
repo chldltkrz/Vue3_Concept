@@ -40,7 +40,7 @@ export default {
         console.log(resultMessage.text);
         return resultMessage.text;
       };
-      this.returnedMessage = result();
+      this.returnedMessage = result().then();
     },
   },
 };
