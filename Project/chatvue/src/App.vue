@@ -1,6 +1,6 @@
 <template>
   <PageHeader id="header"></PageHeader>
-  <TextField id="textfield" :returnedMessage="returnedMessage"></TextField>
+  <TextField id="textfield" :savedMessages="savedMessages"></TextField>
   <InputField id="Inputfield" @send="setMessage"></InputField>
   <PageFooter id="footer"></PageFooter>
 </template>
@@ -20,11 +20,16 @@ export default {
   components: { PageHeader, PageFooter, TextField, InputField },
   data() {
     return {
-      returnedMessage: "",
+      savedMessages: [],
+      counter: 0,
     };
   },
   methods: {
     setMessage(message) {
+      this.savedMessages.push({
+        id: this.counter++,
+        message: message,
+      });
       const chatGptMessages = [
         {
           role: ChatCompletionRequestMessageRoleEnum.System,
@@ -36,11 +41,14 @@ export default {
         },
       ];
       const result = async function () {
-        const resultMessage = await client.respond(chatGptMessages);
-        console.log(resultMessage.text);
-        return resultMessage.text;
+        return await client.respond(chatGptMessages);
       };
-      this.returnedMessage = result().then();
+      result().then((n) => {
+        this.savedMessages.push({
+          id: this.counter++,
+          message: n.text,
+        });
+      });
     },
   },
 };

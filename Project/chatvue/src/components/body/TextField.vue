@@ -1,7 +1,9 @@
 <template>
   <div>
     <ul>
-      <li>{{ returnedMessage }}</li>
+      <li v-for="sm in savedMessages" :key="sm.id">
+        {{ sm.id }} - {{ sm.message }}
+      </li>
     </ul>
   </div>
 </template>
@@ -9,7 +11,7 @@
 <script>
 export default {
   props: {
-    returnedMessage: String,
+    savedMessages: Array,
   },
 };
 </script>

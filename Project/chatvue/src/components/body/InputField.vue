@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" id="question" v-model="message" />
+    <input type="text" id="question" ref="question" v-model="message" />
     <button @click.prevent="send">ASK!</button>
     <button class="btn btn_red"><span class="tts"></span>TTS</button>
     <button class="btn btn_red"><span class="stt"></span>SST</button>
@@ -17,6 +17,7 @@ export default {
   emits: ["send"],
   methods: {
     send() {
+      this.$refs.question.value = "";
       this.$emit("send", this.message);
     },
   },
