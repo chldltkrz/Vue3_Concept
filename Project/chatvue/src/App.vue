@@ -53,33 +53,4 @@ export default {
   },
 };
 </script>
-
-<style>
-* {
-  text-align: center;
-}
-
-#header {
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #14005e;
-  color: white;
-}
-#footer {
-  position: absolute;
-  bottom: 0px;
-  width: 99%;
-  height: 6rem;
-  justify-content: center;
-  align-items: center;
-  background-color: lightskyblue;
-}
-#textfield {
-  width: 100%;
-  background-color: lightgrey;
-  height: 45rem;
-}
-</style>
+<style></style>

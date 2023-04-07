@@ -25,6 +25,19 @@ export default {
 </script>
 
 <style scoped>
+div {
+  position: fixed;
+  bottom: calc(5rem);
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightyellow;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 input {
   width: 70%;
 }
