@@ -12,10 +12,7 @@ import PageHeader from "./components/header/PageHeader.vue";
 import TextField from "./components/body/TextField.vue";
 import InputField from "./components/body/InputField.vue";
 import PageFooter from "./components/footer/PageFooter.vue";
-import ChatGPT from "./components/ChatGPT.vue";
-
-import { ChatCompletionRequestMessageRoleEnum } from "openai";
-const client = ChatGPT.chatgpt;
+import axios from "axios";
 
 export default {
   name: "App",
@@ -46,24 +43,18 @@ export default {
         id: this.counter++,
         message: message,
       });
-      const chatGptMessages = [
-        {
-          role: ChatCompletionRequestMessageRoleEnum.System,
-          content: "You are a helpful assistant.",
-        },
-        {
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: message,
-        },
-      ];
+
       const result = async function () {
-        return await client.respond(chatGptMessages);
-      };
-      result().then((n) => {
-        this.savedMessages.push({
-          id: this.counter++,
-          message: n.text,
+        return axios.post(`http://localhost:3334/gpt`, {
+          message: message,
         });
+      };
+      result().then((response) => {
+        console.log(response.data.message.message),
+          this.savedMessages.push({
+            id: this.counter++,
+            message: response.data.message.message,
+          });
       });
     },
   },

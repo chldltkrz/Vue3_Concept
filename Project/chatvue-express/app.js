@@ -21,13 +21,21 @@ const result = async function (message) {
     },
   ]);
 };
+app.options("*", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.sendStatus(200);
+});
 
-app.post("/", (req, res) => {
-  result(res.json({ requestBody: req.body })).then((n) => {
+app.post(`/gpt`, (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  console.log(res.json({ message: req.body }));
+  result(res.json({ message: req.body })).then((n) => {
     res.send(n.text);
   });
 });
-
 app.listen(port, () => {
   console.log(`서버가 실행됩니다. http://localhost:${port}`);
 });
