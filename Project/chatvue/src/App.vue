@@ -1,8 +1,10 @@
 <template>
-  <PageHeader id="header"></PageHeader>
-  <TextField id="textfield" :savedMessages="savedMessages"></TextField>
-  <InputField id="Inputfield" @send="setMessage"></InputField>
-  <PageFooter id="footer"></PageFooter>
+  <div v-if="login">
+    <PageHeader id="header"></PageHeader>
+    <TextField id="textfield" :savedMessages="savedMessages"></TextField>
+    <InputField id="Inputfield" @send="setMessage"></InputField>
+    <PageFooter id="footer"></PageFooter>
+  </div>
 </template>
 
 <script>
@@ -22,9 +24,23 @@ export default {
     return {
       savedMessages: [],
       counter: 0,
+      login: false,
     };
   },
+  beforeMount() {
+    this.password();
+  },
   methods: {
+    password() {
+      let password = prompt("Please enter the password");
+      if (password === "ANFYcotwnlvlxl1!") {
+        this.login = true;
+      } else {
+        alert(
+          "You cannot use this chatgpt without permission email 'chldltkrz@gmail.com' for more detail"
+        );
+      }
+    },
     setMessage(message) {
       this.savedMessages.push({
         id: this.counter++,
