@@ -31,8 +31,9 @@ app.options("*", (req, res) => {
 app.post(`/gpt`, (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
 
-  console.log(res.json({ message: req.body }));
-  result(res.json({ message: req.body })).then((n) => {
+  console.log(req.body.message);
+  result(req.body.message).then((n) => {
+    console.log(n.text);
     res.send(n.text);
   });
 });

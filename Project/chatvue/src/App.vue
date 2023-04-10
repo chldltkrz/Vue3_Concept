@@ -30,7 +30,8 @@ export default {
   methods: {
     password() {
       let password = prompt("Please enter the password");
-      if (password === "ANFYcotwnlvlxl1!") {
+      // if (password === "ANFYcotwnlvlxl1!") {
+      if (password === "1111") {
         this.login = true;
       } else {
         alert(
@@ -50,10 +51,10 @@ export default {
         });
       };
       result().then((response) => {
-        console.log(response.data.message.message),
+        console.log(response.data),
           this.savedMessages.push({
             id: this.counter++,
-            message: response.data.message.message,
+            message: response.data,
           });
       });
     },
