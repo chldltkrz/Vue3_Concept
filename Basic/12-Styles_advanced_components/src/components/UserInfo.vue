@@ -8,9 +8,9 @@
   </section>
 </template>
 
-<script>
+<script scoped>
 export default {
-  props: ['fullName', 'infoText', 'role'],
+  props: ["fullName", "infoText", "role"],
 };
 </script>
 
