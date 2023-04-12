@@ -1,12 +1,13 @@
 <template>
-  <button :type="type" :class="mode">
+  <!-- Because of fall through, I can delete type binding -->
+  <button :class="mode">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  props: ["type", "mode"],
+  props: ["mode"],
 };
 </script>
 <style scoped>
