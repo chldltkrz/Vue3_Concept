@@ -3,11 +3,19 @@
     <h2>Manage Goals</h2>
     <input type="text" ref="goal" />
     <button @click="setGoal">Set Goal</button>
-    <error-alert v-if="inputIsInvalid">
-      <h2>Input is Invalud</h2>
-      <p>Please Input something</p>
-      <button @click="confirmError">OKAY</button>
-    </error-alert>
+    <!-- slight problem that following element should be the higher order of html
+         because there will be error on styling and html tag order
+         There we use the concept of "teleporting elements"
+
+         following error-alert will be inserted just below the app div!
+    -->
+    <teleport to="#app">
+      <error-alert v-if="inputIsInvalid">
+        <h2>Input is Invalud</h2>
+        <p>Please Input something</p>
+        <button @click="confirmError">OKAY</button>
+      </error-alert>
+    </teleport>
   </div>
 </template>
 
