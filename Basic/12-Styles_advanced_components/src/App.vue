@@ -1,4 +1,3 @@
-` ````AZ`` ````````
 <template>
   <div>
     <the-header></the-header>
@@ -7,10 +6,13 @@
     <!-- <active-goals v-if="selectedComponent === 'active-goals'"></active-goals>
     <manage-goals v-if="selectedComponent === 'manage-goals'"></manage-goals> -->
 
-    <!-- component element if element given by the vue that
+    <!-- KEEPALIVE: this keepalive element tells vue that created element should not be destroyed when things are changing  -->
+    <!-- DYNAMICCOMPONENT: component element if element given by the vue that
           it can show whatever component the comdition is met
     -->
-    <component :is="selectedComponent"></component>
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
