@@ -100,6 +100,10 @@
       </div>
     </div>
     <div class="form-control">
+      <!-- v-model is passing props with 'model-value'(In child its 'modelValue') -->
+      <rating-control v-model="rating"></rating-control>
+    </div>
+    <div class="form-control">
       <input type="checkbox" name="confirm-terms" id="confirm-terms" />
       <label for="confirm-terms"> agree? </label>
     </div>
@@ -109,7 +113,11 @@
   </form>
 </template>
 <script>
+import RatingControl from './RatingControl.vue';
 export default {
+  components: {
+    RatingControl,
+  },
   data() {
     return {
       userName: '',
@@ -119,6 +127,7 @@ export default {
       how: null,
       confirm: false,
       userNameValidity: 'pending',
+      rating: null,
     };
   },
   methods: {
@@ -129,6 +138,7 @@ export default {
       this.interest = [];
       this.how - null;
       this.confirm = false;
+      this.rating = null;
     },
     validateInput() {
       if (this.userName === '') {
