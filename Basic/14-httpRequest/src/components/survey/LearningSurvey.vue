@@ -42,6 +42,7 @@
         <p v-if="invalidInput">
           One or more input fields are invalid. Please check your provided data.
         </p>
+        <p v-if="error">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -57,6 +58,7 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null,
     };
   },
   emits: ['survey-submit'],
@@ -67,7 +69,7 @@ export default {
         return;
       }
       this.invalidInput = false;
-
+      this.error = null;
       // this.$emit('survey-submit', {
       //   userName: this.enteredName,
       //   rating: this.chosenRating,
@@ -86,7 +88,13 @@ export default {
             rating: this.chosenRating,
           }),
         }
-      );
+      )
+        .then((response) => {
+          if (!response.ok) throw new Error('Could not save the data');
+        })
+        .catch((e) => {
+          this.error = e.message;
+        });
       this.enteredName = '';
       this.chosenRating = null;
     },
