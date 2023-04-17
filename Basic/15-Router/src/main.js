@@ -18,10 +18,11 @@ const router = createRouter({
       path: '/users',
       component: UsersList,
     },
-    // dynamic component
+    // dynamic component variable
     {
       path: '/teams/:teamId',
       component: TeamMembers,
+      props: true,
     },
   ],
 });
