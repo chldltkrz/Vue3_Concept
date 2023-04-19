@@ -19,17 +19,22 @@ const router = createRouter({
       path: '/teams',
       component: TeamsList,
       //   alias: '/',
+
+      // for nested route use children keyword with the array as an input
+      children: [
+        // dynamic component variable
+        {
+          path: ':teamId',
+          component: TeamMembers,
+          props: true,
+        },
+      ],
     },
     {
       path: '/users',
       component: UsersList,
     },
-    // dynamic component variable
-    {
-      path: '/teams/:teamId',
-      component: TeamMembers,
-      props: true,
-    },
+
     {
       path: '/:notFound(.*)',
       component: notFound,
