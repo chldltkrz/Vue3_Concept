@@ -20,6 +20,9 @@ const router = createRouter({
     {
       name: 'teams',
       path: '/teams',
+      meta: {
+        needsAuth: true,
+      },
       components: { default: TeamsList, footer: TeamsFooter },
       //   component: TeamsList,
       //   alias: '/',
@@ -68,6 +71,12 @@ const router = createRouter({
 router.beforeEach(function (to, from, next) {
   console.log('beforeEACh');
   console.log(to, from);
+  if (to.meta.needsAuth) {
+    console.log('NeedsAuthentication');
+    next();
+  } else {
+    next();
+  }
   //  I allow allow next page to open
   //   next();
   // Following Code will redirect all connect to the team-members/t2 page
