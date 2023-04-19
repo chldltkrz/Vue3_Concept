@@ -6,6 +6,8 @@ import TeamsList from './components/teams/TeamsList.vue';
 import UsersList from './components/users/UsersList.vue';
 import TeamMembers from './components/teams/TeamMembers.vue';
 import notFound from './components/nav/NotFound.vue';
+import TeamsFooter from './components/teams/TeamsFooter.vue';
+import UsersFooter from './components/users/UsersFooter.vue';
 
 const router = createRouter({
   // create browser default history managing behavior!
@@ -18,7 +20,8 @@ const router = createRouter({
     {
       name: 'teams',
       path: '/teams',
-      component: TeamsList,
+      components: { default: TeamsList, footer: TeamsFooter },
+      //   component: TeamsList,
       //   alias: '/',
 
       // for nested route use children keyword with the array as an input
@@ -34,7 +37,8 @@ const router = createRouter({
     },
     {
       path: '/users',
-      component: UsersList,
+      components: { default: UsersList, footer: UsersFooter },
+      //   component: UsersList,
     },
 
     {
