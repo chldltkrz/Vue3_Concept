@@ -16,6 +16,7 @@ const router = createRouter({
       redirect: '/teams',
     },
     {
+      name: 'teams',
       path: '/teams',
       component: TeamsList,
       //   alias: '/',
@@ -24,6 +25,7 @@ const router = createRouter({
       children: [
         // dynamic component variable
         {
+          name: 'team-members',
           path: ':teamId',
           component: TeamMembers,
           props: true,
