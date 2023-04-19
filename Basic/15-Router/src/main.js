@@ -38,6 +38,12 @@ const router = createRouter({
     {
       path: '/users',
       components: { default: UsersList, footer: UsersFooter },
+      // NavigationGuard that execute before enter the pag
+      beforeEnter(to, from, next) {
+        console.log('BeforeEnter');
+        console.log(to, from);
+        next();
+      },
       //   component: UsersList,
     },
 
@@ -57,6 +63,26 @@ const router = createRouter({
     // return { left: 0, top: 0 };
   },
 });
+
+// called before each navigation is called
+router.beforeEach(function (to, from, next) {
+  console.log('beforeEACh');
+  console.log(to, from);
+  //  I allow allow next page to open
+  //   next();
+  // Following Code will redirect all connect to the team-members/t2 page
+  //   if (to.name === 'team-members') {
+  //     next();
+  //   } else {
+  //     next({ name: 'team-members', params: { teamId: 't2' } });
+  //   }
+  next();
+});
+router.afterEach(function (to, from) {
+  // like sending analytics data
+  to = to + from;
+});
+
 const app = createApp(App);
 app.use(router);
 app.mount('#app');

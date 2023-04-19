@@ -46,6 +46,9 @@ export default {
       this.teamName = selectedTeam.name;
     },
   },
+  beforeRouteUpdate(to, from, next) {
+    next();
+  },
   created() {
     // route variable provide various info about the router
     this.loadTeamMembers(this.teamId);
