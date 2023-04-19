@@ -14,7 +14,11 @@ export default {
     teamMemberList() {
       // return '/teams/' + this.id;
       // can use this name route instead of full path route! with dynamic params arguments
-      return { name: 'team-members', params: { teamId: this.id } };
+      return {
+        name: 'team-members',
+        params: { teamId: this.id },
+        query: { sort: 'asc' },
+      };
     },
   },
 };

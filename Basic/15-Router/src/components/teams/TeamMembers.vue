@@ -49,6 +49,8 @@ export default {
   created() {
     // route variable provide various info about the router
     this.loadTeamMembers(this.teamId);
+    // way to access to the query params
+    console.log(this.$route.query);
   },
   watch: {
     teamId(newId) {
