@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <users-list></users-list>
+  </div>
+  <div class="container">
     <div class="block" :class="{ animate: animatedBlock }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
@@ -12,7 +15,8 @@
          transition add css class to the element 
          (v-enter-from, v-enter-to, v-enter-active or [v-leave-*] )
     -->
-    <transition @before-enter="beforeEnter">
+    <!-- css binding with false value will disable css transition -->
+    <transition @before-enter="beforeEnter" :css="false">
       <p v-if="PIsVisible">Sometimes visible</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -30,7 +34,11 @@
 </template>
 
 <script>
+import UsersList from './components/UsersList.vue';
 export default {
+  components: {
+    UsersList,
+  },
   data() {
     return {
       dialogIsVisible: false,
@@ -41,7 +49,7 @@ export default {
   },
   methods: {
     // beforeEnter will be receiving an argument, the element
-    // there are multiple enter and leave event(before, after, enter, leave..)
+    // there are multiple enter and leave event(combination of before, after, enter, leave..)
     beforeEnter(element) {
       console.log('beforeEnter');
       console.log(element);
