@@ -18,6 +18,13 @@
     <button @click="toggleParagraph">Toggle Paragraph</button>
   </div>
   <div class="container">
+    <!-- exception! if max element to be shown is one, then multiple transition is accepted -->
+    <transition name="fade" mode="out-in">
+      <button @click="showUsers" v-if="!usersAreVisible">Show User</button>
+      <button @click="hideUsers" v-else>hide User</button>
+    </transition>
+  </div>
+  <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
 </template>
@@ -25,9 +32,20 @@
 <script>
 export default {
   data() {
-    return { dialogIsVisible: false, animatedBlock: false, PIsVisible: false };
+    return {
+      dialogIsVisible: false,
+      animatedBlock: false,
+      PIsVisible: false,
+      usersAreVisible: false,
+    };
   },
   methods: {
+    showUsers() {
+      this.usersAreVisible = true;
+    },
+    hideUsers() {
+      this.usersAreVisible = false;
+    },
     showDialog() {
       this.dialogIsVisible = true;
     },
@@ -124,6 +142,21 @@ button:active {
 .v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+.fade-leave-active {
+  transition: opacity 0.3s ease-in reverse;
+}
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
 }
 
 /* @keyframes test {
