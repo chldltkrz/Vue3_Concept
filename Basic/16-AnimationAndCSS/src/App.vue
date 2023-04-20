@@ -12,7 +12,7 @@
          transition add css class to the element 
          (v-enter-from, v-enter-to, v-enter-active or [v-leave-*] )
     -->
-    <transition>
+    <transition @before-enter="beforeEnter">
       <p v-if="PIsVisible">Sometimes visible</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -40,6 +40,12 @@ export default {
     };
   },
   methods: {
+    // beforeEnter will be receiving an argument, the element
+    // there are multiple enter and leave event(before, after, enter, leave..)
+    beforeEnter(element) {
+      console.log('beforeEnter');
+      console.log(element);
+    },
     showUsers() {
       this.usersAreVisible = true;
     },
