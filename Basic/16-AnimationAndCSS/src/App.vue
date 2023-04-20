@@ -1,44 +1,13 @@
 <template>
-  <div class="container">
-    <users-list></users-list>
-  </div>
-  <div class="container">
-    <div class="block" :class="{ animate: animatedBlock }"></div>
-    <button @click="animateBlock">Animate</button>
-  </div>
-  <base-modal @close="hideDialog" :open="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <!-- transition must contain only one element
-         transition add css class to the element 
-         (v-enter-from, v-enter-to, v-enter-active or [v-leave-*] )
-    -->
-    <!-- css binding with false value will disable css transition -->
-    <transition @before-enter="beforeEnter" :css="false">
-      <p v-if="PIsVisible">Sometimes visible</p>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
     </transition>
-    <button @click="toggleParagraph">Toggle Paragraph</button>
-  </div>
-  <div class="container">
-    <!-- exception! if max element to be shown is one, then multiple transition is accepted -->
-    <transition name="fade" mode="out-in">
-      <button @click="showUsers" v-if="!usersAreVisible">Show User</button>
-      <button @click="hideUsers" v-else>hide User</button>
-    </transition>
-  </div>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
+  </router-view>
 </template>
 
 <script>
-import UsersList from './components/UsersList.vue';
 export default {
-  components: {
-    UsersList,
-  },
   data() {
     return {
       dialogIsVisible: false,
@@ -172,7 +141,25 @@ button:active {
 .fade-leave-from {
   opacity: 1;
 }
+.route-enter-active {
+  animation: slide-scale 0.4s ease-out;
+}
+.route-leave-active {
+  animation: slide-scale 0.4s ease-out reverse;
+}
+@keyframes slide-scale {
+  0% {
+    transform: translateX(0) scale(1);
+  }
 
+  70% {
+    transform: translateX(-120px) scale(1.1);
+  }
+
+  100% {
+    transform: translateX(-150px) scale(1);
+  }
+}
 /* @keyframes test {
   from {
     opacity: 0;
