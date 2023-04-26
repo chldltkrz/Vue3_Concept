@@ -13,6 +13,10 @@ const store = createStore({
     increment(state) {
       state.counter++;
     },
+    // It is an object or anything to user provide when commit happens
+    increase(state, payload) {
+      state.counter = state.counter + payload.value;
+    },
   },
 });
 const app = createApp(App);
