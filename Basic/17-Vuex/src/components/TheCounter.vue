@@ -6,7 +6,8 @@
 export default {
   computed: {
     counter() {
-      return this.$store.state.counter;
+      // This is how to use mutation in the component
+      return this.$store.commit('increment');
     },
   },
 };
