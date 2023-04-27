@@ -2,12 +2,11 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 
 import App from './App.vue';
-const store = createStore({
+
+// can modulize the store in to object unit
+const counterModule = {
   state() {
-    return {
-      counter: 0,
-      isLoggedIn: false,
-    };
+    return { counter: 0 };
   },
   mutations: {
     // state is current state
@@ -22,11 +21,7 @@ const store = createStore({
     increase(state, payload) {
       state.counter = state.counter + payload.value;
     },
-    setAuth(state, payload) {
-      state.isLoggedIn = payload.isAuth;
-    },
   },
-  // in action an ASYNC code can be executed!
   actions: {
     increment(context) {
       // commit will execute a method in mutation
@@ -37,12 +32,6 @@ const store = createStore({
     increase(context, payload) {
       // commit will execute a method in mutation
       context.commit('increase', payload);
-    },
-    login(context) {
-      context.commit('setAuth', { isAuth: true });
-    },
-    logout(context) {
-      context.commit('setAuth', { isAuth: false });
     },
   },
   getters: {
@@ -62,6 +51,33 @@ const store = createStore({
       }
       return finalCounter;
     },
+  },
+};
+
+const store = createStore({
+  modules: {
+    numbers: counterModule,
+  },
+  state() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  mutations: {
+    setAuth(state, payload) {
+      state.isLoggedIn = payload.isAuth;
+    },
+  },
+  // in action an ASYNC code can be executed!
+  actions: {
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
+    },
+  },
+  getters: {
     userIsAuthenticated(state) {
       return state.isLoggedIn;
     },
