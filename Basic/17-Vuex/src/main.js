@@ -5,6 +5,8 @@ import App from './App.vue';
 
 // can modulize the store in to object unit
 const counterModule = {
+  // entire module is seperated from the main store
+  namespaced: true,
   state() {
     return { counter: 0 };
   },

@@ -12,7 +12,7 @@ export default {
     // },
 
     // No drilling variables, just calling multiple getter
-    ...mapGetters(['finalCounter']),
+    ...mapGetters('numbers', ['finalCounter']),
   },
 };
 </script>
