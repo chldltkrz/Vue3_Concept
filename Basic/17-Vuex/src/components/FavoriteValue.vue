@@ -1,13 +1,13 @@
 <template>
   <h3>{{ counter }}</h3>
+  <p>More things to come</p>
 </template>
 
 <script>
 export default {
   computed: {
     counter() {
-      // This is how to use mutation in the component
-      return this.$store.getters.normalizedCounter;
+      return this.$store.getters.finalCounter;
     },
   },
 };
