@@ -27,7 +27,12 @@ export default {
     addOne() {
       // This is how to use mutation in the component
       // this.$store.commit('increase', { value: 10 });
-      this.$store.commit({
+      // this.$store.commit({
+      //   type: 'increase',
+      //   value: 10,
+      // });
+      // This is how to use actions in the component
+      this.$store.dispatch({
         type: 'increase',
         value: 10,
       });

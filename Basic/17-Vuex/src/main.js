@@ -12,10 +12,27 @@ const store = createStore({
     // state is current state
     increment(state) {
       state.counter++;
+      // this is bad practice case to execute
+      //   setTimeout(function () {
+      //     state.counter++;
+      //   }, 2000);
     },
     // It is an object or anything to user provide when commit happens
     increase(state, payload) {
       state.counter = state.counter + payload.value;
+    },
+  },
+  // in action an async code can be executed!
+  actions: {
+    increment(context) {
+      // commit will execute a method in mutation
+      setTimeout(function () {
+        context.commit('increment');
+      }, 2000);
+    },
+    increase(context, payload) {
+      // commit will execute a method in mutation
+      context.commit('increase', payload);
     },
   },
   getters: {
