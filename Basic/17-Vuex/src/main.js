@@ -6,6 +6,7 @@ const store = createStore({
   state() {
     return {
       counter: 0,
+      isLoggedIn: false,
     };
   },
   mutations: {
@@ -21,8 +22,11 @@ const store = createStore({
     increase(state, payload) {
       state.counter = state.counter + payload.value;
     },
+    setAuth(state, payload) {
+      state.isLoggedIn = payload.isAuth;
+    },
   },
-  // in action an async code can be executed!
+  // in action an ASYNC code can be executed!
   actions: {
     increment(context) {
       // commit will execute a method in mutation
@@ -33,6 +37,12 @@ const store = createStore({
     increase(context, payload) {
       // commit will execute a method in mutation
       context.commit('increase', payload);
+    },
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
     },
   },
   getters: {
@@ -51,6 +61,9 @@ const store = createStore({
         return 100;
       }
       return finalCounter;
+    },
+    userIsAuthenticated(state) {
+      return state.isLoggedIn;
     },
   },
 });
