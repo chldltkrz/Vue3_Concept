@@ -1,3 +1,4 @@
 <template>
-  <div></div>
+  <section>Filter</section>
+  <section>LIST</section>
 </template>
