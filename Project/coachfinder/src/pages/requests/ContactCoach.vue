@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <div>Contacst</div>
 </template>
