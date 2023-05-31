@@ -5,15 +5,15 @@
       <input type="text" id="firstname" v-model.trim="firstName" />
     </div>
     <div class="form-control">
-      <label for="lastname">Firstname</label>
+      <label for="lastname">Lastname</label>
       <input type="text" id="lastname" v-model.trim="lastName" />
     </div>
     <div class="form-control">
-      <label for="description">Firstname</label>
+      <label for="description">Description</label>
       <textarea id="description" rows="5" v-model.trim="description"></textarea>
     </div>
     <div class="form-control">
-      <label for="rate">Firstname</label>
+      <label for="rate">Rate</label>
       <input type="number" id="rate" v-model.number="rate" />
     </div>
     <div class="form-control">
@@ -31,12 +31,13 @@
         <label for="career">Career Advisory</label>
       </div>
     </div>
-    <base-botton>Register</base-botton>
+    <base-button>Register</base-button>
   </form>
 </template>
 
 <script>
 export default {
+  emits: ["save-data"],
   data() {
     return {
       firstName: "",
@@ -55,7 +56,7 @@ export default {
         rate: this.rate,
         areas: this.areas,
       };
-      console.log(formData);
+      this.$emit("save-data", formData);
     },
   },
 };
