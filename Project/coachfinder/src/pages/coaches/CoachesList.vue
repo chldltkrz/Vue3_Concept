@@ -1,39 +1,41 @@
 <template>
-  <!-- !!error this will always convert error value to boolean! -->
-  <base-dialog :show="!!error" title="Error Occured.." @close="handleError">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <coach-filter @change-filter="setFilter"></coach-filter>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button mode="outline" @click="loadCoaches(true)">
-          Refresh</base-button
-        >
-        <base-button v-if="!isCoach && !isLoading" link to="register"
-          >Register as Coach</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasCoaches">
-        <coach-item
-          v-for="c in filteredCoaches"
-          :key="c.id"
-          :id="c.id"
-          :first-name="c.firstName"
-          :last-name="c.lastName"
-          :areas="c.areas"
-          :rate="c.hourlyRate"
-        >
-        </coach-item>
-      </ul>
-      <h3 v-else>Currently has no coache Available</h3>
-    </base-card>
-  </section>
+  <div>
+    <!-- !!error this will always convert error value to boolean! -->
+    <base-dialog :show="!!error" title="Error Occured.." @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <coach-filter @change-filter="setFilter"></coach-filter>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline" @click="loadCoaches(true)">
+            Refresh</base-button
+          >
+          <base-button v-if="!isCoach && !isLoading" link to="register"
+            >Register as Coach</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasCoaches">
+          <coach-item
+            v-for="c in filteredCoaches"
+            :key="c.id"
+            :id="c.id"
+            :first-name="c.firstName"
+            :last-name="c.lastName"
+            :areas="c.areas"
+            :rate="c.hourlyRate"
+          >
+          </coach-item>
+        </ul>
+        <h3 v-else>Currently has no coache Available</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 <script>
 import CoachItem from "../../components/coaches/CoachItem.vue";
