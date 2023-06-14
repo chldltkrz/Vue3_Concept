@@ -6,12 +6,18 @@ export default {
     };
   },
   getters: {
-    requests(state) {
-      return state.requests;
+    // instead of showing all reqeusts of all coaches,
+    // we need to make the page to show the specific coache's message
+    // requests(state) {
+    //   return state.requests;
+    // },
+    requests(state, _, _2, rootGetters) {
+      const coachId = rootGetters.userId;
+      return state.requests.filter((req) => req.coachId === coachId);
     },
-    hasRequests(state) {
+    hasRequests(state, getters) {
       //this will return either true or false
-      return state.requests && state.requests.length > 0;
+      return getters.requests && getters.requests.length > 0;
     },
   },
   mutations: {
