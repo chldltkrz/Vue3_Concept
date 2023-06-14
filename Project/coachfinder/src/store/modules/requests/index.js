@@ -5,7 +5,15 @@ export default {
       requests: [],
     };
   },
-  getters: {},
+  getters: {
+    requests(state) {
+      return state.requests;
+    },
+    hasRequests(state) {
+      //this will return either true or false
+      return state.requests && state.requests.length > 0;
+    },
+  },
   mutations: {
     addRequest(state, payload) {
       state.requests.push(payload);
