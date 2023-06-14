@@ -1,6 +1,8 @@
 export default {
   namespaced: true,
   state: {
+    // this will hold last fetching timestamp
+    lastFetch: null,
     coaches: [
       {
         id: "c1",
@@ -34,6 +36,15 @@ export default {
       const userId = rootGetters.userId;
       return coaches.some((coach) => coach.id === userId);
     },
+    shouldUpdate(state) {
+      const lastFetch = state.lastFetch;
+      if (!lastFetch) {
+        return true;
+      }
+      const currentTimeStamp = new Date().getTime();
+      // check if last fetch is less than a minute ago
+      return (currentTimeStamp - lastFetch) / 1000 > 60;
+    },
   },
   mutations: {
     registerCoach(state, payload) {
@@ -41,6 +52,9 @@ export default {
     },
     setCoaches(state, payload) {
       state.coaches = payload;
+    },
+    setFetchTimestamp(state) {
+      state.lastFetch = new Date().getTime();
     },
   },
   actions: {
@@ -70,6 +84,10 @@ export default {
       context.commit("registerCoach", { ...coachData, id: userId });
     },
     async loadCoaches(context, payload) {
+      // this sentence of code will decide whether to use cached data or notm
+      if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+        return;
+      }
       const response = await fetch(
         `https://vue-http-coach-e3ba2-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
       );
@@ -93,6 +111,7 @@ export default {
         coaches.push(coach);
       }
       context.commit("setCoaches", coaches);
+      context.commit("setFetchTimestamp");
     },
   },
 };
