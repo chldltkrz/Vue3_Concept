@@ -41,17 +41,30 @@ export default {
     },
   },
   actions: {
-    registerCoach(context, data) {
+    async registerCoach(context, data) {
+      const userId = context.rootGetters.userId;
       const coachData = {
-        //id: new Date().toISOString(),
-        id: context.rootGetters.userId,
+        // id: new Date().toISOString(),
+        // id: context.rootGetters.userId,
         firstName: data.first,
         lastName: data.last,
         description: data.desc,
         hourlyRate: data.rate,
         areas: data.areas,
       };
-      context.commit("registerCoach", coachData);
+      const response = await fetch(
+        `https://vue-http-coach-e3ba2-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
+        {
+          // overwrite if exist or create New
+          method: "PUT",
+          body: JSON.stringify(coachData),
+        }
+      );
+      // const responseData = await response.json();
+      if (!response.ok) {
+        //error
+      }
+      context.commit("registerCoach", { ...coachData, id: userId });
     },
   },
 };
