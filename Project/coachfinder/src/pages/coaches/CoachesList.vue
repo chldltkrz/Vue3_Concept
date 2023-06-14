@@ -1,4 +1,8 @@
 <template>
+  <!-- !!error this will always convert error value to boolean! -->
+  <base-dialog :show="!!error" title="Error Occured.." @close="handleError">
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter="setFilter"></coach-filter>
   </section>
@@ -71,13 +75,21 @@ export default {
     },
     async loadCoaches() {
       this.isLoading = true;
-      await this.$store.dispatch("coaches/loadCoaches");
+      try {
+        await this.$store.dispatch("coaches/loadCoaches");
+      } catch (error) {
+        this.error = error.message || "something went Wrong!";
+      }
       this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
   data() {
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,

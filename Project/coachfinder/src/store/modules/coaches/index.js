@@ -77,6 +77,8 @@ export default {
       payload;
       if (!response.ok) {
         // error
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
       }
       const coaches = [];
       for (const key in responseData) {
