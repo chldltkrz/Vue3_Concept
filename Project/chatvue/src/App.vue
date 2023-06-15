@@ -2,7 +2,7 @@
   <div v-if="login">
     <PageHeader id="header"></PageHeader>
     <TextField id="textfield" :savedMessages="savedMessages"></TextField>
-    <InputField id="Inputfield" @send="setMessage"></InputField>
+    <InputField id="Inputfield" @send="setMessage" :turn="turn"></InputField>
     <PageFooter id="footer"></PageFooter>
   </div>
 </template>
@@ -19,6 +19,7 @@ export default {
   components: { PageHeader, PageFooter, TextField, InputField },
   data() {
     return {
+      turn: false,
       savedMessages: [],
       counter: 0,
       login: false,
@@ -39,23 +40,28 @@ export default {
         );
       }
     },
-    setMessage(message) {
+
+    async setMessage(message) {
+      if (this.turn) return;
+      this.turn = true;
       this.savedMessages.push({
         id: this.counter++,
+        isItMe: true,
         message: message,
       });
-
-      const result = async function () {
+      const result = await function () {
         return axios.post(`http://localhost:3334/gpt`, {
           message: message,
         });
       };
       result().then((response) => {
-        console.log(response.data),
-          this.savedMessages.push({
-            id: this.counter++,
-            message: response.data,
-          });
+        this.savedMessages.push({
+          id: this.counter++,
+          isItMe: false,
+          message: JSON.stringify(response.data),
+        });
+        console.log(response.data);
+        this.turn = false;
       });
     },
   },

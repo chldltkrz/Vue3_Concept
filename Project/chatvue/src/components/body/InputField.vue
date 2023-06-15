@@ -1,7 +1,16 @@
 <template>
   <div>
-    <input type="text" id="question" ref="question" v-model="message" />
-    <button @click.prevent="send">ASK!</button>
+    <input
+      type="text"
+      id="question"
+      ref="question"
+      v-model="message"
+      @keyup.enter.prevent="send"
+      :disabled="disable"
+    />
+    <button @click.prevent="send" :disabled="disable">
+      {{ disable ? "Wait..." : "ASK!" }}
+    </button>
     <button class="btn btn_red"><span class="tts"></span>TTS</button>
     <button class="btn btn_red"><span class="stt"></span>SST</button>
   </div>
@@ -9,6 +18,17 @@
 
 <script>
 export default {
+  props: {
+    turn: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    disable() {
+      return this.turn;
+    },
+  },
   data() {
     return {
       message: "",
@@ -19,6 +39,7 @@ export default {
     send() {
       this.$refs.question.value = "";
       this.$emit("send", this.message);
+      this.message = "";
     },
   },
 };

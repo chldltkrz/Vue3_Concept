@@ -13,7 +13,7 @@ const result = async function (message) {
     {
       role: ChatCompletionRequestMessageRoleEnum.System,
       content:
-        "You are a helpful assistant who has 30 years of scientific research project.",
+        "You are a software developer who uses Vue.js as main language since 2014",
     },
     {
       role: ChatCompletionRequestMessageRoleEnum.User,

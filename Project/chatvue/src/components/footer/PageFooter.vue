@@ -1,7 +1,7 @@
 <template>
   <footer>
     <h2>V1. Made by Issac Choi</h2>
-    <h4>230405</h4>
+    <h4>Started at 230405</h4>
   </footer>
 </template>
 

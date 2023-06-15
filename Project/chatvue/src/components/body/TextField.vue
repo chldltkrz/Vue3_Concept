@@ -1,8 +1,12 @@
 <template>
   <div>
     <ul>
-      <li v-for="sm in savedMessages" :key="sm.id">
-        {{ sm.id }} - {{ sm.message }}
+      <li
+        v-for="sm in savedMessages"
+        :key="sm.id"
+        :class="sm.isItMe ? 'left' : 'right'"
+      >
+        {{ sm.isItMe ? "Me" : "chatGPT" }} - {{ sm.message }}
       </li>
     </ul>
   </div>
@@ -20,7 +24,7 @@ div {
   top: calc(5rem);
   left: 0;
   width: 100%;
-  height: calc(100% - 10rem);
+  height: calc(100% - 15rem);
   width: 100%;
   background-color: lightgrey;
   color: white;
@@ -32,12 +36,13 @@ div {
 }
 li {
   color: black;
+  list-style-type: none;
 }
-li:nth-child(even) {
+li:right {
   order: 2;
   margin-left: auto;
 }
-li:nth-child(odd) {
+li.left {
   order: 1;
   margin-right: auto;
 }
